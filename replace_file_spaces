@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Replace all of the spaces of the files in the current directory
+# with the provided character (by default an underscore)
+
+for f in *; do mv "$f" `echo $f | tr ' ' '_'`; done

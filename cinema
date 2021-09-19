@@ -1,0 +1,53 @@
+#!/bin/sh
+
+#exec > /dev/null 2>&1
+
+set -- $(getopt -a -l ignore-background-reinit it "$@")
+
+# flags
+initMonitors=1
+initBackground=1
+
+while [ -n "$1" ]
+do
+    case "$1" in
+        -i) 
+            initMonitors=0
+            ;;
+        -t)
+            echo $(xrandr) | grep "DP-3 connected" >/dev/null 2>&1
+            if [ "$?" = "0" ]
+            then
+                echo Theater is active
+                exit 0
+            else
+                echo Theater is not active
+                exit 1
+            fi
+            
+            exit
+            ;;
+        --ignore-background-reinit)
+            initBackground=0
+            ;;
+    esac
+    shift
+done
+
+if [ $initMonitors -eq 1 ]
+then
+    xrandr --output "DP-0" --mode 1920x1080 --rate 144 --pos 0x1080 --primary --below "HDMI-0"
+    xrandr --output "HDMI-0" --mode 1920x1080 --rate 60  --pos 1920x1080 --right-of "DP-0"
+    xrandr --output "DP-3" --mode 1920x1080 --rate 59.94 --pos 0x0 --above "DP-0"
+fi
+
+if [ $initBackground -eq 1 ]
+then
+    cmd="$1"
+    if [ "$cmd" = "" ] 
+    then
+        cmd="--bg-max"
+    fi
+
+    feh $cmd $(pick_random_wallpapers -v)
+fi

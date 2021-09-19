@@ -1,0 +1,96 @@
+#!/bin/sh
+# This is a little shell script to pick random pictures from a directory and set them as the background of one of more monitors
+# the script itself acts as the config file.
+
+
+set -- $(getopt vlufa:d:s: "$@")
+
+#Defaults
+picDir="$HOME/pictures/wallpapers"
+lockFile="/home/jonah/scripts/var/pick_random_wallpapers.lock"
+fehArg="--bg-fill"
+
+#Option flags
+styleOverride="0" # a -s parameter will override a -d parameter
+overrideLockFile="0"
+
+while [ -n "$1" ]
+do
+    case "$1" in
+        -v) # Print the selected wallpapers
+            echo $(cat /home/jonah/scripts/var/selected_pictures)
+            exit
+            ;;
+        -l) # lock
+            touch $lockFile
+            echo "Locked current wallpapers" 1> /dev/stdout
+            exit 0
+            ;;
+        -u) # unlock
+            rm $lockFile >/dev/null 2>&1
+            echo "Unlocked current wallpapers" 1> /dev/stdout
+            exit 0
+            ;;
+        -f)
+            overrideLockFile="1"
+            ;;
+        -a)
+            fehArg="$2"
+            shift
+            ;;
+        -d)
+            if [ styleOverride = "0" ]
+            then
+                picDir="$2"
+            fi
+
+            shift
+            ;;
+        -s)
+            style=$(echo "$2" | tr "[:upper:]" "[:lower:]")
+
+            case "$style" in
+                landscape)
+                    picDir="$HOME/pictures/wallpapers"
+                    ;;
+            esac
+            shift
+
+            styleOverride="1"
+            ;;
+    esac
+    shift
+done
+
+# Don't run the rest of the script if the lock file ($lockFile) exists and the argument to override the lock file isn't present
+if [ -f "$lockFile" -a "$overrideLockFile" = "0" ]
+then
+    echo "Lock file exists at $lockFileDir" > /dev/stderr
+    echo "Please remove the lock file, or pass in the -f flag" > /dev/stderr
+    exit 1
+fi
+
+Pictures=($picDir/*)
+nPictures=$(ls $picDir/ -1 | wc -l)
+
+# This needs to be thrown into a while loop or something
+rand0=$(random_range 0 $nPictures)
+bg0="${Pictures[rand0]}"
+
+rand1=$(random_range 0 $nPictures)
+while [ $rand1 -eq $rand0 ]
+do
+    rand1=$(random_range 0 $nPictures)
+done
+bg1="${Pictures[rand1]}"
+
+rand2=$(random_range 0 $nPictures)
+while [ $rand2 -eq $rand1 -o $rand2 -eq $rand0 ]
+do
+    rand2=$(random_range 0 $nPictures)
+done
+bg2="${Pictures[rand2]}" 
+
+# Finally set the randomly selected wallpapers.
+echo "$bg0 $bg1 $bg2" > /home/jonah/scripts/var/selected_pictures
+feh "$fehArg" "$bg0" "$bg1" "$bg2"

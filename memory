@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /home/jonah/reccourses/Become\ a\ SuperLearner®\ 2\ Learn\ Speed\ Reading\ \&\ Boost\ Memory/worksheets
+setsid brave * &
+exit

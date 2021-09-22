@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Place a basic LaTeX document into a file, will overrite all of
+# the contents of the file
+
+echo "\\documentclass[12pt]{article}
+\usepackage{titling}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage[margin=1in]{geometry}
+
+\\\\newcommand{\\PutTitle}[1]
+{
+    \\\\begin{center}
+        {\\\\huge\\\\bfseries\\thetitle}\\\\\\
+        by \\\\theauthor\\\\\\
+        \thedate\\\\\\
+        #1        
+    \\\\end{center}
+    \\\\hrule
+    \\\\vspace{2ex}
+}
+
+\setlength\\paperwidth{8.5in}
+\setlength\\paperheight{11in}
+\setlength\\parindent{24pt}
+
+\hypersetup
+{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}" > ./$1

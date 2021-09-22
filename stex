@@ -13,7 +13,7 @@ echo "\\documentclass[12pt]{article}
 \\\\newcommand{\\PutTitle}[1]
 {
     \\\\begin{center}
-        {\\\\huge\\\\bfseries\\thetitle}\\\\\\
+        {\\\\huge\\\\bfseries\\\\thetitle}\\\\\\
         by \\\\theauthor\\\\\\
         \thedate\\\\\\
         #1        

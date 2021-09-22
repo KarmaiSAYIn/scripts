@@ -15,7 +15,7 @@ echo "\\documentclass[12pt]{article}
     \\\\begin{center}
         {\\\\huge\\\\bfseries\\\\thetitle}\\\\\\
         by \\\\theauthor\\\\\\
-        \thedate\\\\\\
+        \\\\thedate\\\\\\
         #1        
     \\\\end{center}
     \\\\hrule
@@ -31,4 +31,16 @@ echo "\\documentclass[12pt]{article}
     colorlinks=true,
     linkcolor=blue,
     urlcolor=blue,
-}" > ./$1
+}
+
+\\\\begin{document}
+
+\\\\title{}
+\\\\author{}
+\\\\date{\today}
+\\\\PutTitle{}
+
+
+
+\\\\end{document}
+" > ./$1

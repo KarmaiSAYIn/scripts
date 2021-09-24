@@ -35,6 +35,8 @@ echo "\\documentclass[12pt]{article}
 
 \\\\begin{document}
 
+\\\\doublespacing
+
 \\\\title{}
 \\\\author{}
 \\\\date{\\\\today}

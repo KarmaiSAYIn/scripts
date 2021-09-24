@@ -37,7 +37,7 @@ echo "\\documentclass[12pt]{article}
 
 \\\\title{}
 \\\\author{}
-\\\\date{\today}
+\\\\date{\\\\today}
 \\\\PutTitle{}
 
 

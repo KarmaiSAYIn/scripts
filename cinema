@@ -46,7 +46,7 @@ then
     cmd="$1"
     if [ "$cmd" = "" ] 
     then
-        cmd="--bg-max"
+        cmd="--bg-fill"
     fi
 
     feh $cmd $(pick_random_wallpapers -v)

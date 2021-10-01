@@ -7,7 +7,7 @@ set -- $(getopt vlufa:d:s: "$@")
 
 #Defaults
 picDir="$HOME/pictures/wallpapers"
-lockFile="/home/jonah/scripts/var/pick_random_wallpapers.lock"
+lockFile="$HOME/scripts/var/pick_random_wallpapers.lock"
 fehArg="--bg-fill"
 
 #Option flags
@@ -18,7 +18,7 @@ while [ -n "$1" ]
 do
     case "$1" in
         -v) # Print the selected wallpapers
-            echo $(cat /home/jonah/scripts/var/selected_pictures)
+            echo $(cat $HOME/scripts/var/selected_pictures)
             exit
             ;;
         -l) # lock
@@ -92,5 +92,5 @@ done
 bg2="${Pictures[rand2]}" 
 
 # Finally set the randomly selected wallpapers.
-echo "$bg0 $bg1 $bg2" > /home/jonah/scripts/var/selected_pictures
+echo "$bg0 $bg1 $bg2" > $HOME/scripts/var/selected_pictures
 feh "$fehArg" "$bg0" "$bg1" "$bg2"

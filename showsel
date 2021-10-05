@@ -1,3 +1,0 @@
-#!/bin/sh
-
-cat /tmp/selected_pictures 2>/dev/null

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-pidof output > /dev/null 2>&1
-[ "$?" = "0" ] && killall output
-make && setsid output& >/dev/null 2&>1

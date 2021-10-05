@@ -1,8 +1,0 @@
-#!/bin/sh
-
-PLAYERCTL=$(which playerctl)
-
-echo $($PLAYERCTL metadata xesam:artist)
-echo
-echo $($PLAYERCTL metadata xesam:title)
-

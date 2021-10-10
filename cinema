@@ -38,7 +38,15 @@ if [ $initMonitors -eq 1 ]
 then
     xrandr --output "DP-0" --mode 1920x1080 --rate 144 --pos 0x1080 --primary --below "HDMI-0"
     xrandr --output "HDMI-0" --mode 1920x1080 --rate 60  --pos 1920x1080 --right-of "DP-0"
+
+    xte 'mousemove 960 540'
+
     xrandr --output "DP-3" --mode 1920x1080 --rate 59.94 --pos 0x0 --above "DP-0"
+
+    if [ "$?" = "0" ] 
+    then
+        xte 'mousemove 960 1620'
+    fi
 fi
 
 if [ $initBackground -eq 1 ]
